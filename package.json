@@ -1,0 +1,23 @@
+{
+  "name": "gpod-ukbackend",
+  "version": "1.0.0",
+  "description": "gpod-uk by Afolabi Opeyemi Joshua (Jcodes)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "Afolabi Opeyemi Joshua (Jcodes)",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "axios": "^1.8.4",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
+}
