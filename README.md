@@ -1,3 +1,4 @@
+```yaml
 openapi: 3.0.0
 info:
   title: HMRC VAT API Integration
@@ -20,7 +21,7 @@ paths:
             type: string
           description: Optional URL to redirect to after login.
       responses:
-        '302':
+        "302":
           description: Redirect to HMRC authorization URL
 
   /api/oauth/callback:
@@ -35,9 +36,9 @@ paths:
             type: string
           description: The authorization code returned by HMRC.
       responses:
-        '302':
+        "302":
           description: Redirect after successful login
-        '500':
+        "500":
           description: Failed to exchange code for token
 
   /api/vat-obligations/{vrn}:
@@ -69,9 +70,9 @@ paths:
             type: string
           description: Obligation status (e.g., O, F, etc.)
       responses:
-        '200':
+        "200":
           description: VAT obligations returned
-        '500':
+        "500":
           description: Failed to fetch VAT obligations
 
   /api/vat-return/{vrn}:
@@ -127,7 +128,8 @@ paths:
                 - totalAcquisitionsExVAT
                 - finalised
       responses:
-        '200':
+        "200":
           description: VAT return successfully submitted
-        '500':
+        "500":
           description: Failed to submit VAT return
+```
