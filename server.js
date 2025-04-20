@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -17,6 +17,10 @@ app.use(cookieParser());
 let authToken = null;
 let refreshToken = null;
 let tokenExpiresAt = null;
+
+app.get("/", (req, res) => {
+  res.send("HMRC VAT API is running");
+});
 
 // Redirect user to HMRC consent screen
 app.get("/api/oauth/login", (req, res) => {

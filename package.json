@@ -8,6 +8,9 @@
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
+  "engines": {
+    "node": ">=18.20.4"
+  },
   "author": "Afolabi Opeyemi Joshua (Jcodes)",
   "license": "ISC",
   "devDependencies": {
