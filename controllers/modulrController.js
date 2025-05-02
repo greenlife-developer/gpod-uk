@@ -183,7 +183,7 @@ const initiatePayment = asyncHandler(async (req, res) => {
       error: "API call failed",
       message: error.response.data.message,
       status: error.response.status,
-      code: error.response.data.code,
+      code: error.response.data.code, 
     });
   }
 });
