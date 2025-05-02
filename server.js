@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const axios = require("axios");
 const dotenv = require("dotenv");
+const modulrRoute = require("./routes/modulrRoute");
 
 dotenv.config();
 
@@ -18,8 +19,10 @@ let authToken = null;
 let refreshToken = null;
 let tokenExpiresAt = null;
 
+app.use("/api/modulr", modulrRoute)
+
 app.get("/", (req, res) => {
-  res.send("HMRC VAT API is running");
+  res.send("Server is running");
 });
 
 // Redirect user to HMRC consent screen
