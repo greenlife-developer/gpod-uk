@@ -55,9 +55,13 @@ const getAccount = async () => {
 const getAccountDetails = asyncHandler(async (req, res) => {
   try {
     const response = await axios.get(
-      "https://api-sandbox.modulrfinance.com/api-sandbox/accounts",
+      "https://api-sandbox.modulrfinance.com/api-sandbox-token/accounts/A2100DSMC8?statuses=ACTIVE",
       {
-        headers: signatureResult.getHTTPHeaders(),
+        headers: {
+          Authorization:
+            "eyJvcmciOiI2NDdlNjg2OTFjNGQxNzAwMDFkYzA5ZWEiLCJpZCI6IjQ0MWNkOTZiYzk0ZjQ4OTg5ODVkYjU4MjUyZTRjNzJlIiwiaCI6Im11cm11cjEyOCJ9",
+          Accept: "application/json",
+        },
       }
     );
 
@@ -73,7 +77,7 @@ const getAccountDetails = asyncHandler(async (req, res) => {
       );
     }
   } catch (error) {
-    console.error("Error in API call: ", error.message);
+    console.error("Error in API call: ", error);
     res.status(500).json({
       error: "API call failed",
       message: error.response.data.message,
@@ -87,33 +91,40 @@ const makePayment = asyncHandler(async (req, res) => {
     // const { sourceAccountId } = req.body;
 
     const data = {
-      amount: 999.99,
-      currency: "EUR",
-      destination: {
-        type: "IBAN",
-        iban: "IE52MODR99035500333832",
-        name: "Beneficiary Name",
-      },
       sourceAccountId: "A2100DSMC8",
-      reference: "Example Reference",
+      destination: {
+        iban: "GB20MODR00000000000001",
+        accountNumber: 12345678,
+        sortCode: "000000",
+        name: "Test",
+        type: "ACCOUNT",
+        id: "A2100DSMC7",
+      },
+      currency: "GBP",
+      amount: 100,
+      reference: "Salary",
+      externalReference: "aReference_00001",
+      endToEndReference: "aReference_00001",
+      paymentDate: "2025-05-03",
     };
 
     const accounts = await getAccount();
     console.log("Accounts: ", accounts);
 
     const response = await axios.post(
-      "https://api-sandbox.modulrfinance.com/api-sandbox/payments",
+      "https://api-sandbox.modulrfinance.com/api-sandbox-token/payments",
       data,
       {
         headers: {
-          ...signatureResult.getHTTPHeaders(),
+          Authorization:
+            "eyJvcmciOiI2NDdlNjg2OTFjNGQxNzAwMDFkYzA5ZWEiLCJpZCI6IjQ0MWNkOTZiYzk0ZjQ4OTg5ODVkYjU4MjUyZTRjNzJlIiwiaCI6Im11cm11cjEyOCJ9",
+          Accept: "application/json",
           "Content-Type": "application/json",
-          //   Acccept: "application/json",
         },
       }
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       console.log("Successful API call, code: ", response.status);
       res.status(200).json(response.data);
     } else {
@@ -155,7 +166,7 @@ const initiatePayment = asyncHandler(async (req, res) => {
     console.log("Accounts: ", accounts);
 
     const response = await axios.post(
-      "https://api-sandbox.modulrfinance.com/api-sandbox/payment-initiations",
+      "https://api-sandbox.modulrfinance.com/api-sandbox-token/payment-initiations",
       data,
       {
         headers: {
@@ -183,7 +194,7 @@ const initiatePayment = asyncHandler(async (req, res) => {
       error: "API call failed",
       message: error.response.data.message,
       status: error.response.status,
-      code: error.response.data.code, 
+      code: error.response.data.code,
     });
   }
 });
